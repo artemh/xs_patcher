@@ -57,8 +57,8 @@ function apply_patches {
 				echo "Downloading from $PATCH_URL..."
 				wget -q $PATCH_URL -O $TMP_DIR/$PATCH_FILE
 				echo "Unpacking..."
-				unzip -qq $TMP_DIR/$PATCH_FILE -d $CACHE_DIR
-			fi	
+				unzip -qq $TMP_DIR/$PATCH_FILE -d $CACHE_DIR && rm $TMP_DIR/$PATCH_FILE
+			fi
 
 			echo "Applying $PATCH_NAME... [ Release Notes @ $PATCH_KB ]"
 			xe patch-upload file-name=$CACHE_DIR/$PATCH_NAME.xsupdate
@@ -67,7 +67,7 @@ function apply_patches {
 		fi
 	done
 
-	rm -rf tmp/*
+	rm -rf $TMP_DIR/*
 	echo "Everything has been patched up!"
 }
 
